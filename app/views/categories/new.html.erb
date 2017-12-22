@@ -1,0 +1,41 @@
+
+
+<%	 if signed_in? %>
+    <div class="container">
+      <div class="col-md-12" style="margin-top: 30px">
+        <div class="col-md-6" >
+          <div class="row border">
+            <div class="col-md-8">
+              <p class="lead" style="margin-top: 15px;"> Nueva Categoria </p>
+            </div>
+            <div class="col-md-4" >
+              <div class=" border" style="margin-top: 10px; text-align: left !important; padding: 3px; background-color: #f6f6f5 ">
+                <i class=" fa fa-3x fa-check" style="margin-right: 10px; color: #3d5f91 "></i>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <hr >
+              <ul class="list-inline">
+                <%= form_for(@category, :html => {:multipart => true }) do |f| %>
+                    <%= render 'shared/error_messages', object: f.object %>
+                    <li >
+                      <%= f.label :name %>
+                      <%= f.text_field :name, :placeholder => "Música", class: 'form-control input-group-sm col-md-12', size: '25' %>
+                    </li>
+                    </br>
+                    <hr>
+                    <li >
+                      <%= f.submit "Nueva @category", class: "btn btn-large btn-primary" %>
+                    </li>
+                <% end %>
+              </ul>
+            </div>
+
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+<% end %>

@@ -1,0 +1,24 @@
+  <div class="container">
+    <div class="col-md-12">
+      <div class="text-center" style="margin-top: 100px">
+        <br>
+        <br>
+        <% [:notice, :error, :alert].each do |level| %>
+            <% unless flash[level].blank? %>
+                <div data-alert="alert" class="alert-message <%= flash_class(level) %> fade in">
+                  <a class="close" href="#">×</a>
+                  <%= content_tag :p, flash[level] %>
+                </div>
+            <% end %>
+        <% end %>
+      </div>
+      <section>
+        <div class="header-description">
+          <div class="text-center  ">
+          </div><!-- /header-description -->
+        </div>
+      </section>
+    </div><!-- /span12 -->
+  </div><!-- /container -->
+  <br/><br/><br/><br/><br/>
+

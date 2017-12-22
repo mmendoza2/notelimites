@@ -1,0 +1,6 @@
+<%= form_for(current_user.relationvenues.build(followed_id: @venue.id), remote: true) do |f| %>
+    <div><%= f.hidden_field :followed_id %></div>
+    <%= button_tag(type: 'submit', class: "btn btn-danger ") do %>
+        <i class="fa fa-2x fa-heart" style="color: #ffffff; text-align: center;" ><p style="font-size: 15px; font-weight: bold"> Guardar </p></i>
+    <% end %>
+<% end %>

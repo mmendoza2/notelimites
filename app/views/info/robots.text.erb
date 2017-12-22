@@ -1,0 +1,15 @@
+<% if Rails.env.production? %>
+    User-Agent: *
+    Allow: /
+    Sitemap: https://s3.amazonaws.com/notelimites/sitemap.xml.gz
+    Disallow: /users
+    Disallow: /terminos
+    Disallow: /agencias
+
+
+
+<% else %>
+    User-Agent: *
+    Disallow: /
+
+<% end %>

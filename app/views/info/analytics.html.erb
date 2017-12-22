@@ -1,0 +1,56 @@
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+    google.charts.load('current', {packages: ['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+        // Define the chart to be drawn.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Element');
+        data.addColumn('number', 'Percentage');
+        data.addRows([
+            ['Nitrogen', 0.78],
+            ['Oxygen', 0.21],
+            ['Other', 0.01]
+        ]);
+
+        // Instantiate and draw the chart.
+        var chart = new google.visualization.PieChart(document.getElementById('myPieChart'));
+        chart.draw(data, null);
+    }
+</script>
+
+<%
+  if Rails.env.development?
+    conn = TinyTds::Client.new(:database => 'QDA9', :host => 'MMENDOZA2-PC\SQLEXPRESS', :username => 'MMENDOZA2-PC\SQLEXPRESS', :password => 'MEGM880723', :port => 1433)
+  else
+    conn = PG::Connection.new(:dbname => 'd2ofv83e85lbei', :host => 'ec2-184-73-202-229.compute-1.amazonaws.com', :user => 'rhsgfvcgtnszuj', :password => 'NSf6PWeYgHDe2tTnOVHbGSBMUw', :port => '5432', :sslmode => 'disable')
+  end
+%>
+
+
+
+<div class="container">
+
+  <div class="row" style="margin-top: 100px">
+    <div  id="search"  class="search">
+      <%= form_tag search_path, method: :get,  remote: true  do  %>
+          <%= text_field_tag :search, params[:search], class: 'form-control input-group-sm col-xs-10 col-md-offset-2 col-xs-offset-0', size: '25', style: ' width: 200px;'%>
+
+          <%= button_tag(type: 'submit', :name => nil, class: "btn btn-default", style: "background-color: transparent; border: none") do %>
+              <i class="fa fa-2x fa-search" style="color: #3c598c; text-align: center" ></i>
+          <% end %>
+      <% end %>
+    </div>
+
+  </div>
+  <div class="row">
+    <div id="myPieChart"/>
+  </div>
+
+  <div class="row">
+    <div id="search"></div>
+  </div>
+
+
+</div>

@@ -1,0 +1,107 @@
+
+
+
+
+<!-- top navbar -->
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="background-color:#FF3D62; border: none">
+  <%= render 'layouts/app' %>
+
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <div class="img-responsive"  >
+      <%= link_to image_tag('https://s3.amazonaws.com/notelimites/NTL_logo_white.png',style: "max-width: 80px; width:100%; margin:10px;"), root_path %>
+      </div>
+    </div>
+
+    <!--  Sin toggle no se ve con SM y XS -->
+    <ul class="nav navbar-nav navbar-right hidden-xs" >
+      <li class="dropdown" style="margin-right: 30px">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+          <i  class="fa fa-2x fa-language" style="color: white;"></i>
+        </a>
+        <ul class="dropdown-menu" role="menu">
+          <% I18n.available_locales.each do |x|  %>
+              <li >
+                <%=  link_to("#{x}", root_url(subdomain: "#{x}").chomp('/') + request.fullpath , style: "font-weight: bold; font-size: 12px;" )   %>
+              </li>
+          <% end %>
+        </ul>
+      </li>
+      <div class="btn btn-sm btn-info" style="margin-top: 14px; background-color: #414c80; border: none ">
+          <i class=" fa fa-2x fa-facebook" style="margin-right: 10px;  "></i>
+          <%= link_to t("header.sign_up_fb"), user_facebook_omniauth_authorize_path, style: "color:white;  " %>
+      </div>
+    </ul>
+
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="margin-top: 50px">
+      <ul class="nav navbar-nav navbar-right hidden-sm hidden-md hidden-lg">
+        <li class="dropdown text-center" style="margin-right: 30px" >
+          <a href="#" class="dropdown-toggle hidden-sm" data-toggle="dropdown">
+            <i  class="fa fa-2x fa-language" style="color: white;">
+            </i>
+          </a>
+          <a href="#" class="dropdown-toggle visible-sm" data-toggle="dropdown">
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu" role="menu">
+            <% I18n.available_locales.each do |x|  %>
+                <li >
+                  <%=  link_to("#{x}", root_url(subdomain: "#{x}").chomp('/') + request.fullpath , style: "font-weight: bold; font-size: 12px;" )   %>
+                </li>
+            <% end %>
+          </ul>
+        </li>
+        <li class="lead text-center" style="font-weight: bold; color: white">
+          <a href="#" data-toggle="modal" data-target="#myModal">
+            <div class="btn btn-sm btn-info" style="margin-top: 14px; background-color: #414c80; border: none ">
+              <i class=" fa fa-2x fa-facebook" style="margin-right: 10px; "></i>
+              <%= link_to t("header.sign_up_fb"), user_facebook_omniauth_authorize_path, style: "color:white;  " %>
+            </div>
+          </a>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right hidden-sm hidden-md hidden-lg">
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" >
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel" >Ingresa a NoTeLimites</h4>
+      </div>
+      <div class="modal-body">
+          <section>
+            <div class="header-description">
+              <div class="text-center  " style="margin-top: 30px">
+                <p> ¡No pierdas tiempo y checa todo lo que puedes hacer registrandote!</p>
+                <p></p>
+                <i class="icon-facebook-sign"></i>  <%= link_to t("header.sign_up_fb"), user_facebook_omniauth_authorize_path, class: " btn btn-lg btn-primary" %>
+              </div><!-- /header-description -->
+            </div>
+          </section>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+

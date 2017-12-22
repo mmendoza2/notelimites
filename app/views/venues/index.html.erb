@@ -1,0 +1,53 @@
+
+<title > Lista de lugares donde existen eventos de todo el mundo en No Te Limites</title>
+<meta name="description" content=" Aquí puedes ver la lista completa de todos los lugares que contienen eventos que existen en el mundo. En este lugar no se encuentra acomodados
+por ubicación. Para poder verlos por ubiación por favor agrega tu ciudad en el buscador de arriba." >
+
+<%	 if signed_in?  %>
+    <%	 unless current_user.email != 'man.m25@gmail.com' %>
+
+
+<title > Lista de lugares donde existen eventos de todo el mundo en No Te Limites</title>
+<meta name="description" content=" Aquí puedes ver la lista completa de todos los lugares que contienen eventos que existen en el mundo. En este lugar no se encuentra acomodados
+por ubicación. Para poder verlos por ubiación por favor agrega tu ciudad en el buscador de arriba." >
+
+
+<div class="container">
+
+      <h1 style="margin-top: 29px">Todos los Lugares en el Mundo</h1>
+
+
+      <div class="col-md-8 col-lg-offset-2" style="margin-top: 80px">
+        <table  class="table table-striped table-bordered" cellspacing="0" width="100%">
+          <thead>
+          <tr>
+            <th> <%= link_to "id", :sort => "id" %>  </th>
+            <th> <%= link_to "uid", :sort => "uid" %>  </th>
+            <th> <%= link_to "name", :sort => "name" %>  </th>
+            <th> <%= link_to "city", :sort => "city" %>  </th>
+            <th> <%= link_to "lat", :sort => "lat" %>  </th>
+            <th> <%= link_to "lng", :sort => "lng" %>  </th>
+            <th> Eliminar </th>
+          </tr>
+          </thead>
+          <tbody>
+          <% @venues.order(:city => :desc).each do |x| %>
+              <tr>
+                <td><%=	 x.id %></td>
+                <td><%=	 x.uid %></td>
+                <td><%=	 link_to x.name, x %></td>
+                <td><%=	 x.city %></td>
+                <td><%=	 x.lat %></td>
+                <td><%=	 x.lng %></td>
+                <td>   <%= link_to 'Destroy', x,
+                                   method: :delete,
+                                   data: { confirm: 'Are you sure?' }, style:"margin-left:30px" %></td>
+              </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+</div>
+
+    <% end %>
+<% end %>

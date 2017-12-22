@@ -1,0 +1,21 @@
+
+
+<div class="container">
+
+  <div class="row" style="margin-top: 100px">
+    <div  id="search"  class="search">
+      <%= form_tag search_path, method: :get, remote: true  do  %>
+          <%= text_field_tag :search, params[:search], class: 'form-control input-group-sm col-xs-10 col-md-offset-2 col-xs-offset-0', size: '25', style: ' width: 200px;'%>
+
+          <%= button_tag(type: 'submit', :name => nil, class: "btn btn-default", style: "background-color: transparent; border: none") do %>
+              <i class="fa fa-2x fa-search" style="color: #3c598c; text-align: center" ></i>
+          <% end %>
+      <% end %>
+    </div>
+
+  </div>
+  <div id="locations" >
+  </div>
+
+
+</div>

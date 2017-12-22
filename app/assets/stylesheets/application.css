@@ -1,0 +1,114 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require bootstrap
+ *= require font-awesome
+ *= require_tree .
+ */
+
+@font-face {
+    font-family: 'DINN-bold';
+    src: url('/assets/DINNextRoundedLTPro-Bold.otf') format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'DINN-light';
+    src: url('/assets/DINNextRoundedLTPro-Light.otf') format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'DINN-medium';
+    src: url('/assets/DINNextRoundedLTPro-Medium.otf') format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'DINN-regular';
+    src: url('/assets/DINNextRoundedLTPro-Regular.otf') format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'FUTURA-regular';
+    src: url('/assets/FuturaStd-Book.otf') format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+@font-face {
+    font-family: 'National-Bold';
+    src: url('/assets/National-Bold.otf') format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'National-BoldItalic';
+    src: url('/assets/National-BoldItalic.otf') format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'National-Book';
+    src: url('/assets/National-Book.otf') format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'National-BookItalic';
+    src: url('/assets/National-BookItalic.otf') format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'National-Extrabold';
+    src: url('/assets/National-Extrabold.otf') format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'National-ExtraboldItalic';
+    src: url('/assets/National-ExtraboldItalic.otf') format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'National-Medium';
+    src: url('/assets/National-Medium.otf') format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'National-MediumItalic';
+    src: url('/assets/National-MediumItalic.otf') format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'National-Regular';
+    src: url('/assets/National-Regular.otf') format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'National-RegularItalic';
+    src: url('/assets/National-RegularItalic.otf') format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'National-Semibold';
+    src: url('/assets/National-Semibold.otf') format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}

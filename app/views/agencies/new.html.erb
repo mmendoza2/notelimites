@@ -1,0 +1,87 @@
+
+
+
+    <div class="container">
+      <div class="col-md-12" style="margin-top: 30px">
+       <div class="col-md-6" >
+         <div class="col-md-12">
+
+             <div class="row border">
+                <div class="col-md-8">
+                  <p class="lead" style="margin-top: 15px;"> Nueva Agencia por medio de </p>
+                </div>
+                <div class="col-md-4" >
+                  <div class=" border" style="margin-top: 10px; text-align: left !important; padding: 3px; background-color: #f6f6f5 ">
+                    <i class=" fa fa-3x fa-facebook" style="margin-right: 10px; color: #3d5f91 "></i>
+                  </div>
+                </div>
+                  <%	 if signed_in? %>
+                  <div class="col-md-12">
+
+                      <hr >
+                      <ul class="list-inline">
+                        <%= form_for(@agencie, :html => {:multipart => true }) do |f| %>
+                            <%= render 'shared/error_messages', object: f.object %>
+                            <li >
+                              <%= f.label :Name %>
+                              <%= f.text_field :name, :placeholder => "ArenaMonterreyOficial    o    105152013369", class: 'form-control input-group-sm col-md-12', size: '25' %>
+                            </li>
+                            </br>
+                            <hr>
+                            <li >
+                              <%= f.submit "Nueva agencia", class: "btn btn-large btn-primary" %>
+                            </li>
+                        <% end %>
+                      </ul>
+                  </div>
+
+
+                  <% else %>
+                  <div class="col-md-12">
+
+                      <div class="row border">
+                      <p >Por favor de ingresar para poder subir eventos</p>
+                        <div class="btn btn-sm btn-primary" style="margin-top: 10px; ">
+                          <i class=" fa fa-2x fa-facebook" style="margin-right: 10px; "></i>
+                          <%= link_to "  Ingresa con Facebook", user_omniauth_authorize_path(:facebook), style: "color:white;  " %>
+                        </div>
+                      </div>
+                  </div>
+
+                   <% end %>
+
+
+
+           </div>
+         </div>
+       </div>
+       <div class="col-md-6" >
+         <div class="row border">
+           <div class="col-md-8">
+             <p class="lead" style="margin-top: 15px;"> Ejemplo de como subir Agencia </p>
+           </div>
+           <div class="col-md-4" >
+             <div class=" border" style="margin-top: 10px; text-align: left !important; padding: 3px; background-color: #f6f6f5 ">
+               <i class=" fa fa-3x fa-facebook" style="margin-right: 10px; color: #3d5f91 "></i>
+             </div>
+           </div>
+           <div class="col-md-12">
+             <hr >
+              <p class="lead">Paso 1</p>
+              <p>Debes de entrar a una Página de Facebook, (NO a un evento de Facebook)</p>
+               <%=  image_tag("https://s3.amazonaws.com/notelimites/Screen+Shot+2016-08-05+at+9.52.32+AM.png", class: "img-responsive")  %>
+             <hr >
+             <p class="lead">Paso 2</p>
+             <p>Debes de copiar la URL y Pegarla donde dice Nueva Agencia. (Si te marca error es que no estás copiando la url de una página de Facebook)</p>
+             <%=  image_tag("https://s3.amazonaws.com/notelimites/Screen+Shot+2016-08-05+at+9.58.13+AM.png", class: "img-responsive")  %>
+           </div>
+
+
+         </div>
+
+
+       </div>
+
+      </div>
+    </div>
+

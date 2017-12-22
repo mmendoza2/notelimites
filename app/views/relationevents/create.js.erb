@@ -1,0 +1,5 @@
+$('#follow_form<%= @event.id %>').html("<%= escape_javascript(render('events/unfollow')) %>")
+$('#follow_form').html("<%= escape_javascript(render('events/unfollow')) %>")
+
+$('#followers').html('<%= @event.followers.count.to_i + @event.attending_count.to_i %>')
+$('#followersloc<%= @event.id %>').html('<i class="fa fa-users">: </i> <%= @event.followers.count.to_i + @event.attending_count.to_i %> personas')

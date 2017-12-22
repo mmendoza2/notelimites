@@ -1,0 +1,31 @@
+
+-----------------------------------------------------------------
+  pg_upgrade run on Fri Jul  8 13:05:41 2016
+-----------------------------------------------------------------
+
+You must identify the directory where the old cluster binaries reside.
+Please use the -b command-line option or the PGBINOLD environment variable.
+
+-----------------------------------------------------------------
+  pg_upgrade run on Fri Jul  8 13:07:46 2016
+-----------------------------------------------------------------
+
+You must identify the directory where the old cluster binaries reside.
+Please use the -b command-line option or the PGBINOLD environment variable.
+Try "pg_upgrade --help" for more information.
+Try "pg_upgrade --help" for more information.
+Try "pg_upgrade --help" for more information.
+
+-----------------------------------------------------------------
+  pg_upgrade run on Fri Jul  8 13:18:40 2016
+-----------------------------------------------------------------
+
+You must identify the directory where the old cluster binaries reside.
+Please use the -b command-line option or the PGBINOLD environment variable.
+
+-----------------------------------------------------------------
+  pg_upgrade run on Fri Jul  8 13:19:38 2016
+-----------------------------------------------------------------
+
+check for "oldCluster/bin" failed: No such file or directory
+

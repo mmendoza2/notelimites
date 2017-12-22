@@ -1,0 +1,65 @@
+<header id="header" class="site-header">
+  <div class="container">
+    <div class="col-md-12">
+      <div class="text-center" style="margin-top: 100px">
+        <br>
+        <h2 style="color: #ffffff; font-weight: 100; font-size: 40px" >NoTeLimites te ayudará a conocer México.</h2>
+        <br>
+        <% [:notice, :error, :alert].each do |level| %>
+            <% unless flash[level].blank? %>
+                <div data-alert="alert" class="alert-message <%= flash_class(level) %> fade in">
+                  <a class="close" href="#">×</a>
+                  <%= content_tag :p, flash[level] %>
+                </div>
+            <% end %>
+        <% end %>
+      </div>
+      <section>
+        <div class="header-description">
+          <div class="text-center  ">
+            <i class="icon-facebook-sign"></i>  <%= link_to "Ingresa con Facebook", user_omniauth_authorize_path(:facebook), class: " btn btn-lg btn-primary" %>
+          </div><!-- /header-description -->
+        </div>
+      </section>
+    </div><!-- /span12 -->
+  </div><!-- /container -->
+  <br/><br/><br/><br/><br/>
+</header>
+<section id="features" class="features">
+  <div class="container">
+    <div class="row">
+
+      <div class="col-md-3">
+        <div class="feature">
+          <i class="icon-globe icon-2x pull-left"></i>
+          <h4>Descubre</h4>
+          <p>Descubre todos los lugares, actividades y eventos que existen en México.</p>
+        </div>
+      </div><!-- /span3 -->
+
+      <div class="col-md-3">
+        <div class="feature">
+          <i class="icon-wrench icon-2x pull-left"></i>
+          <h4>Conoce</h4>
+          <p>Conoce lugares que nunca antes habías visto.</p>
+        </div>
+      </div><!-- /span3 -->
+
+      <div class="col-md-3">
+        <div class="feature">
+          <i class="icon-desktop icon-2x pull-left"></i>
+          <h4>Disfruta</h4>
+          <p>Disfruta todo lo que México tiene para ti</p>
+        </div>
+      </div><!-- /span3 -->
+
+      <div class="col-md-3">
+        <div class="feature">
+          <i class="icon-thumbs-up icon-2x pull-left"></i>
+          <h4>Comparte</h4>
+          <p>Comparte con tus amigos todo lo que sabes acerca de México y sus lugares.</p>
+        </div>
+      </div><!-- /span3 -->
+    </div><!-- /row-fluid -->
+  </div><!-- /container -->
+</section>

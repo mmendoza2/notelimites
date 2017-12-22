@@ -1,0 +1,57 @@
+<%	 if signed_in?  %>
+<%	 unless current_user.email != 'man.m25@gmail.com' %>
+<div class="container" >
+  <div class="col-md-8 col-lg-offset-2" style="margin-top: 80px">
+
+
+
+
+    <table  class="table table-striped table-bordered" cellspacing="0" width="100%">
+      <thead>
+      <tr>
+        <th> <%= link_to "id", :sort => "id" %>  </th>
+        <th> <%= link_to "name", :sort => "name" %>  </th>
+        <th> <%= link_to "created_at", :sort => "created_at" %>  </th>
+        <th> <%= link_to "lat", :sort => "lat" %>  </th>
+        <th> <%= link_to "lng", :sort => "lng" %>  </th>
+        <th> <%= link_to "tm", :sort => "tm" %>  </th>
+        <th> <%= link_to "supplier", :sort => "supplier" %>  </th>
+        <th> Eliminar </th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @locations.order(:tm => :asc ).each do |x|  %>
+          <tr>
+            <td><%=	 x.id %></td>
+            <td><%=	 link_to x.name, x %></td>
+            <td><%=	  x.created_at.to_s(:short)	 %></td>
+            <td><%=	  x.lat	 %></td>
+            <td><%=	  x.lng	 %></td>
+            <td>
+            <%= form_for(x, :html => {:remote => true}) do |f| %>
+                <%= f.check_box :tm %> <br />
+                <%= f.submit "xxx", class: "btn btn-sm btn-primary" %>
+            <% end %>
+            </td>
+            <td>
+              <%= form_for(x, :html => {:remote => true}) do |f| %>
+                  <%= f.collection_select :supplier_id, Supplier.order(:name),:id,:name ,:prompt => true, :selected => x.supplier_id , class: 'form-control'%>
+                  <%= f.submit "xxx", class: "btn btn-sm btn-primary" %>
+              <% end %>
+            </td>
+            <td>   <%= link_to 'Destroy', x,
+                               method: :delete,
+                               data: { confirm: 'Are you sure?' }, style:"margin-left:30px" %></td>
+          </tr>
+
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+
+
+
+</div>
+
+<% end %>
+<% end %>

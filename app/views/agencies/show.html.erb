@@ -1,0 +1,187 @@
+<%=
+
+
+    puts "actualizando agencias"
+    if Rails.env.development?
+      conn = PG.connect(:dbname => 'ntlcom_dev', user: 'Meme', password: 'manumanu')
+    else
+      conn = PG::Connection.new(:dbname => 'd2ofv83e85lbei', :host => 'ec2-184-73-202-229.compute-1.amazonaws.com', :user => 'rhsgfvcgtnszuj', :password => 'NSf6PWeYgHDe2tTnOVHbGSBMUw', :port => '5432', :sslmode => 'disable')
+    end
+    x = 0
+
+        fbevent = ActiveSupport::JSON.decode(open("https://graph.facebook.com/v2.5/#{@agencie.name}?fields=events{cover,name,category,place,description,id,end_time,start_time,ticket_uri,photos,picture,comments,attending_count},name,location,category,username&access_token=EAACmRfp4e4EBAInSt7z6i4Ije56RxsWqdApBggz0gV7pt7AjqDroL60dVRi79BJgZCNMoXnSInl4ZCCwXXo2G8CYgZBu6ZAnkdHY5lN1tF5jgk3pKHZAmDNKl4sK7R9RQhZAbC0WhiykBALTLvNA6nV6VG82NtG7EZD").read)
+        puts "Facebook response api exitosa"
+        unless fbevent['events'].nil?
+          category_id =	fbevent['category']
+          if category_id == 'Bar' or category_id == 'Food/Beverages' or category_id == 'Arts/Entertainment/Nightlife' or category_id == 'club' or category_id == 'Comedian' or category_id == 'Restaurant/Cafe'
+            category_id =  '3'
+          elsif category_id == 'Concert Venue'  or  category_id =='Actor/Director' or category_id =='Artist' or category_id =='Musician/Band' or category_id =='Album' or category_id =='Concert Tour' or category_id =='Radio Station' or category_id =='Record Label' or category_id == 'Public Figure'
+            category_id =  '1'
+          elsif category_id == 'Outdoor Gear/Sporting Goods' or category_id =='Cars' or category_id =='Vitamins/Minerals' or category_id =='Athlete' or category_id =='Coach' or category_id =='Sports Venue' or category_id == 'Sports Team' or category_id == 'Sports/Recreation/Activities'
+            category_id =  '2'
+          elsif category_id == 'Book Store' or category_id =='Food/Beverages' or category_id =='Movie Theatre' or category_id =='Restaurant / Café' or category_id =='School' or category_id =='Shopping / Retail' or category_id =='Spas/Beauty/Personal Care' or category_id =='Church' or category_id =='Health/Beauty' or category_id =='Baby Goods/Kids Goods' or category_id =='Clothing' or category_id =='Furniture' or category_id =='Games/Toys' or category_id =='Health/Beauty' or category_id =='Kitchen/Cooking' or category_id =='Pet Supplies' or category_id =='Movie' or category_id == 'Food/Grocery'
+            category_id =  '4'
+          elsif category_id == 'Musuem/Art Gallery' or category_id =='Book' or category_id =='Library'
+            category_id =  '5'
+          else
+            category_id =  '6'
+          end
+
+          # Si location no existe: Update de agencias  en Categoria_ID.  Si categoría no existe: Se agrega UID y NOMBRE en CATEGORIA
+          if fbevent['location'].nil?
+            conn.prepare( @agencie.id.to_s, "UPDATE agencies SET  category_id='#{category_id}', facebook_category='#{fbevent['category']}', slug='#{fbevent['name'].parameterize}', uid='#{fbevent['id']}', updated_at='#{Date.today}'  WHERE name='#{fbevent['username']}' OR  name='#{fbevent['id']}'")
+            conn.exec_prepared( @agencie.id.to_s )
+
+            # Si location existe: Update de agencias en Categoría con CITY Si categoría no existe: Se agrega UID y Nombre en CATEGORIA
+          else
+            puts   fbevent['id']
+            puts   category_id
+            puts   fbevent['category']
+            puts   fbevent['username']
+            puts   fbevent['name']
+            puts   fbevent['location']['city']
+            conn.prepare( @agencie.id.to_s, "UPDATE agencies SET category_id='#{category_id}', facebook_category='#{fbevent['category']}', slug='#{fbevent['name'].parameterize}' , city='#{fbevent['location']['city']}', uid='#{fbevent['id']}', updated_at='#{Date.today}'  WHERE name='#{fbevent['username']}' OR  name='#{fbevent['id']}'")
+            conn.exec_prepared( @agencie.id.to_s)
+            puts "1"
+          end
+
+          # Si el event está vacio en la AGENCIA de FACEBOOK -->
+          result = fbevent['events']['data']
+          i = 1
+          j = 20
+          k = 35
+          y = 230
+          puts "2"
+          # Si va seleccionando event por event -->
+          result.each do |event|
+            i = 1 + i
+            j = 20 + j
+            k = 35 + k
+            y = 39 + k
+
+            puts "3"
+            #  Si no existe la foto de COVER no avanza -->
+            unless event['cover'].nil?
+              puts "4"
+              # Si no existe venue relacionado no avanza -->
+              unless event['place'].nil?
+                puts "5"
+                # Si no existe  venue relacionado no avanza -->
+                unless event['place']['id'].nil?
+                  puts "6"
+                  # Si el event ya existe se hace Update de events: ATTENDING_COUNT, NOMBRE DE AGENCIA, AGENCIA_ID, CATEGORIA -->
+                  if Event.exists?(uid: event['id'])
+                    puts "7"
+                    if  event['end_time'].nil?
+                      conn.prepare( @agencie.id.to_s + y.to_s, "UPDATE events SET category_id='#{category_id}', attending_count=#{event['attending_count']}, start_date='#{event['start_time']}', end_date='#{( event['start_time'].to_date + 4.hours).to_date}' WHERE uid='#{event['id'].parameterize}'")
+                      conn.exec_prepared( @agencie.id.to_s + y.to_s )
+                    else
+                      conn.prepare( @agencie.id.to_s + y.to_s, "UPDATE events SET category_id='#{category_id}', attending_count=#{event['attending_count']}, start_date='#{event['start_time']}', end_date='#{event['end_time']}' WHERE uid='#{event['id'].parameterize}'")
+                      conn.exec_prepared( @agencie.id.to_s + y.to_s )
+                    end
+                    puts "8"
+                    # JSON para  venue del event
+                    fbplace = ActiveSupport::JSON.decode(open("https://graph.facebook.com/v2.5/#{event['place']['id']}?&fields=cover,checkins,name,location,likes,category_list,picture.width(600)&access_token=EAACmRfp4e4EBAInSt7z6i4Ije56RxsWqdApBggz0gV7pt7AjqDroL60dVRi79BJgZCNMoXnSInl4ZCCwXXo2G8CYgZBu6ZAnkdHY5lN1tF5jgk3pKHZAmDNKl4sK7R9RQhZAbC0WhiykBALTLvNA6nV6VG82NtG7EZD").read)
+                    puts "Facebook venue response api exitosa"
+                    # Si el venue ya existe: Se actualiza la información del place apenas que este exista
+                    unless fbplace['id'].nil?
+                      if Venue.exists?(uid: fbplace['id'])
+                        puts "9"
+                        unless fbplace['location'].nil?
+                          unless fbplace['location']['street'].nil?
+                            conn.prepare(@agencie.id.to_s + k.to_s, "UPDATE venues SET place='#{ fbplace['location']['street'].tr("'", "") }' WHERE uid='#{fbplace['id']}'")
+                            conn.exec_prepared( @agencie.id.to_s + k.to_s)
+                          end
+                        end
+                        # Si el venue no existe: Se Crea apenas que contenga location
+                      else
+                        puts "10"
+                        unless fbplace['location']['latitude'].nil?
+                          conn.prepare(fbplace['id']+j.to_s, 'INSERT INTO venues (uid, name, lat, lng, image, city, slug) values ($1, $2, $3, $4, $5, $6, $7)')
+                          conn.exec_prepared(fbplace['id']+j.to_s, [ fbplace['id'], fbplace['name'],fbplace['location']['latitude'],fbplace['location']['longitude'],fbplace['picture']['data']['url'], fbplace['location']['city'], fbplace['name'].parameterize ])
+                        end
+                      end
+                    end
+
+                    # Si el event no existe:
+                  else
+                    # JSON para  venue del event
+                    puts "11"
+                    puts event['place']['id']
+                    fbplace = ActiveSupport::JSON.decode(open("https://graph.facebook.com/v2.5/#{event['place']['id']}?&fields=cover,checkins,name,location,likes,category_list,picture.width(600)&access_token=EAACmRfp4e4EBAInSt7z6i4Ije56RxsWqdApBggz0gV7pt7AjqDroL60dVRi79BJgZCNMoXnSInl4ZCCwXXo2G8CYgZBu6ZAnkdHY5lN1tF5jgk3pKHZAmDNKl4sK7R9RQhZAbC0WhiykBALTLvNA6nV6VG82NtG7EZD").read)
+                    puts "Facebook venue 2 response api exitosa"
+                    #  Si el venue ya existe se checa si contiene: location -->
+                    if Venue.exists?(uid: fbplace['id'])
+
+                      unless fbplace['location']['latitude'].nil?
+                        puts " NUEVO event | VIEJO venue"
+                        puts  event['name']
+                        puts  event['description']
+                        puts  event['id']
+                        puts  event['start_time']
+                        puts  event['end_time']
+                        puts  event['ticket_uri']
+                        puts  event['place']['name']
+                        puts  event['place']['id']
+                        puts  event['attending_count']
+                        puts  fbplace['id']
+                        puts  fbplace['name']
+                        puts  fbplace['location']['latitude']
+                        puts  fbplace['picture']['data']['url']
+                        puts  fbplace['location']['city']
+                        puts  fbplace['location']['street']
+                        puts  event['cover']['source']
+                        #  Si contiene place, se acutaliza el place en venues  -->
+                        unless fbplace['location']['street'].nil?
+                          conn.prepare( event['id']+i.to_s, "UPDATE venues SET place='#{ fbplace['location']['street'].tr("'", "") }' WHERE uid='#{fbplace['id']}'")
+                          conn.exec_prepared( event['id']+i.to_s )
+                        end
+                        #  Se crea el event y se sube toda la información. venue si existe -->
+                        conn.prepare(event['id']+j.to_s, 'INSERT INTO events (uid, name,  description, image, slug, start_date, end_date, venue_id, attending_count, category_id) values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)')
+                        conn.exec_prepared(event['id']+j.to_s, [ event['id'], event['name'],event['description'],event['cover']['source'], event['name'].parameterize, event['start_time'], (event['start_time'].to_date + 4.hours).to_date, event['place']['id'], event['attending_count'], category_id ])
+                      end
+                      #  Si el venue no existe: se checa si tiene location -->
+                    else
+                      unless fbplace['location']['latitude'].nil?
+
+
+                        puts  "NUEVO event | NUEVO venue"
+                        puts event['name']
+                        puts event['description']
+                        puts event['id']
+                        puts event['start_time']
+                        puts event['end_time']
+                        puts event['ticket_uri']
+                        puts event['place']['name']
+                        puts event['place']['id']
+                        puts event['attending_count']
+                        puts fbplace['id']
+                        puts fbplace['name']
+                        puts fbplace['location']['latitude']
+                        puts fbplace['picture']['data']['url']
+                        puts fbplace['location']['city']
+                        puts fbplace['location']['street']
+                        puts event['cover']['source']
+
+
+                        # Se crea venue con toda su informacióm -->
+                        conn.prepare(fbplace['id']+k.to_s, 'INSERT INTO venues (uid, name, lat, lng, image, city, slug) values ($1, $2, $3, $4, $5, $6, $7)')
+                        conn.exec_prepared(fbplace['id']+k.to_s, [ fbplace['id'], fbplace['name'],fbplace['location']['latitude'],fbplace['location']['longitude'],fbplace['picture']['data']['url'], fbplace['location']['city'], fbplace['name'].parameterize ])
+                        #  Se crea event con toda su información -->
+                        conn.prepare(event['id']+j.to_s, 'INSERT INTO events (uid, name,  description, image, slug, start_date, end_date, venue_id, attending_count, category_id) values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)')
+                        conn.exec_prepared(event['id']+j.to_s, [ event['id'], event['name'],event['description'],event['cover']['source'], event['name'].parameterize, event['start_time'], (event['start_time'].to_date + 4.hours).to_date, event['place']['id'], event['attending_count'], category_id])
+                      end
+                    end
+                  end
+                end
+              end
+            end
+          end
+        end
+    # Se cierra conexion con BD -->
+    conn.close
+    puts "sirvio conexion"
+
+
+
+%>

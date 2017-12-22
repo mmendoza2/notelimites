@@ -1,0 +1,288 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//ES" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Semana de NTL</title>
+  <style type="text/css">
+    @font-face {
+      font-family: 'National-Semibold';
+      src: url('https://s3.amazonaws.com/notelimites/fonts/National-Semibold.otf') format("truetype");
+      font-weight: normal;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'National-Medium';
+      src: url('https://s3.amazonaws.com/notelimites/fonts/National-Medium.otf') format("truetype");
+      font-weight: normal;
+      font-style: normal;
+    }
+    body, td { color:#000000; font-size:24px; font-family:National-Semibold,National-Medium, open sans,helvetica neue,helvetica,arial,sans-serif;;  }
+    .container {
+      padding-right: 15px;
+      padding-left: 15px;
+      margin-right: auto;
+      margin-left: auto;
+    }
+    @media (max-width: 768px) {
+      table{
+        width:80% !important;
+        clear:both;
+        text-align:center;
+        margin-right: auto;
+        margin-left: auto;
+      }
+      table img {
+        max-width:100%;
+        height:auto;
+      }
+      table tr{
+        width: 100%;
+        padding: 10px 0px 10px 0px;
+        margin: 0px;
+      }
+      table td{
+        width: 450px;
+        padding: 10px 0px 10px 0px;
+        margin: 0px;
+      }
+      body {
+        font-size: small;
+      }
+      .container {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 992px) {
+      table{
+        width:80% !important;
+        clear:both;
+        text-align:center;
+        margin-right: auto;
+        margin-left: auto;
+      }
+      table img {
+        max-width:100%;
+        height:auto;
+      }
+      table tr{
+        width: 750px;
+        padding: 10px 0px 10px 0px;
+        margin: 0px;
+      }
+      table td{
+        width: 750px;
+        padding: 10px 0px 10px 0px;
+        margin: 0px;
+      }
+      body {
+        font-size: medium;
+      }
+      .container {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 1200px) {
+      table{
+        width:80%!important;
+        clear:both;
+
+        text-align:center;
+        margin-right: auto;
+        margin-left: auto;
+      }
+      table img {
+        max-width:100%;
+        height:auto;
+      }
+      table tr{
+        width: 100%;
+        padding: 10px 0px 10px 0px;
+        margin: 0px;
+      }
+      table td{
+        width: 750px;
+        padding: 10px 0px 10px 0px;
+        margin: 0px;
+      }
+      body {
+        font-size: large;
+      }
+      .container {
+        width: 100%;
+      }
+    }
+    #googlemap img {  max-width: none;  }
+    #place_images img {  padding: 1px;  margin: 4px 4px 8px 2px;  border: 1px solid #ccc;  box-shadow: 0px 0px 3px #ccc;  }
+  </style>
+</head>
+<body>
+
+  <div class="container" style="min-height: 500px;  ">
+    <table align="center"   border="0" cellpadding="0" cellspacing="0"  style="background-image: url('https://s3.amazonaws.com/notelimites/background-image-mail-01-01-01.png'); " >
+      <%	 if @user.lat
+             latdown = @user.lat.to_f - 0.2
+             latup = @user.lat.to_f + 0.2
+             lngdown = @user.lng.to_f + 0.2
+             lngup = @user.lng.to_f - 0.2
+            # loc =	ActiveSupport::JSON.decode(open("https://maps.googleapis.com/maps/api/geocode/json?latlng=#{@user.lat},#{@user.lng}&key=AIzaSyClq051yZOiR1YEiaIRTuoi0I0gZgEWZKE").read)
+           else
+             lat = 19.4326077
+             lng = -99.133208
+             latdown = lat.to_f - 0.2
+             latup = lat.to_f + 0.2
+             lngdown = lng.to_f + 0.2
+             lngup = lng.to_f - 0.2
+            # loc =	ActiveSupport::JSON.decode(open("https://maps.googleapis.com/maps/api/geocode/json?latlng=#{lat},#{lng}&key=AIzaSyClq051yZOiR1YEiaIRTuoi0I0gZgEWZKE").read)
+           end
+      %>
+
+      <tr>
+        <td  align="left" style="background-color: whitesmoke; padding: 10px 0px 0px 20px; margin: 0px">
+          <p  style="  font-weight: bold; display: inline; padding: 0px ">Hola</p> <p style=" font-style: italic; font-weight: bold; display: inline"> <%= if @user.name then @user.name else @user.email end %>,</p>
+          <p style="padding: 0px" >¿Ya sabes qué vas a hacer hoy? ¡O este fin de semana! </p>
+          <p style="padding: 0px" ><%= @i %> </p>
+          <p style="padding: 0px" ><%= @user %>  </p>
+        </td>
+      </tr>
+
+      <tr>
+        <td  align="left" style="background-color: black; opacity: .9 ;  padding: 10px">
+          <div style="text-align: center"  >
+            <%= link_to image_tag('https://s3.amazonaws.com/notelimites/no_te_limites(white).png', :alt => 'NTL ',style: "max-width: 500px; width:100%; margin:10px; "), root_path %>
+          </div>
+        </td>
+      </tr>
+
+
+      <tr>
+        <td  align="center" style="background-color: #4516A0  ; padding: 10px;  z-index: 1">
+          <p style="color: white; z-index: -1 !important;">TE INVITA A LOS SIGUIENTES</p>
+          <p style="color: #FF3D62;  margin: -20px 0px -10px 0px">EVENTOS</p>
+        </td>
+      </tr>
+
+
+      <tr>
+        <td align="center" style="background-color: transparent" >
+          <img src="https://s3.amazonaws.com/notelimites/giphy+(<%=Date.today.strftime("%U").to_i %>).gif" alt="" style=" text-align: center; max-width: 600px; padding: 20px">
+          <br>
+        </td>
+      </tr>
+
+
+
+      <tr>
+        <td  align="center" style="background-color: #5C189E; padding: 10px">
+          <p style="color: white; ">POPULARES DE LA </p>
+          <p style="color: #FF3D62;  margin: -20px 0px -10px 0px">SEMANA</p>
+        </td>
+      </tr>
+      <%	@eventspop  = Event.joins(:venue).where(:venues => {:lat => [(latdown..latup)] } ).where(:venues => {:lng => [(lngdown..lngup)] } ).where('start_date > ?' , Date.today.to_time.in_time_zone("Central Time (US & Canada)") ).where('start_date < ?' , 7.days.from_now(Date.today).to_time.in_time_zone("Central Time (US & Canada)") ).order(:attending_count => 'DESC') %>
+      <% if @eventspop then  %>
+          <%	 @eventspop.first(1).each do |resultevent|  %>
+              <%	 unless resultevent.image.nil?  %>
+                  <tr>
+                    <td align="center" style="padding: 20px; background-color: transparent">
+                      <%= link_to(image_tag(resultevent.image, :alt => '',  style: " max-height: 700px; max-width: 650px; "), resultevent) %>
+                    </td>
+                  </tr>
+
+
+                  <tr>
+                    <td  align="center" style="background-color: #602782; padding: 10px; max-width: 650px">
+                      <p style="color: white; "><%= resultevent.description   %> </p>
+                    </td>
+                  </tr>
+              <%	end  %>
+          <%	 end %>
+
+
+          <%	 @eventspop.limit(4).last(1).each do |resultevent|  %>
+              <%	 unless resultevent.image.nil?  %>
+                  <tr>
+                    <td align="center" style="padding: 20px; background-color: transparent">
+                      <%= link_to(image_tag(resultevent.image,  style: " max-height: 700px; max-width: 650px; "), resultevent) %>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td  align="center" style="background-color: #602782; padding: 10px; max-width: 650px">
+                      <p style="color: white; "><%= resultevent.description   %> </p>
+                    </td>
+                  </tr>
+              <%	end  %>
+          <%	 end %>
+      <%	 end %>
+
+
+      <tr>
+        <td align="center" style="background-color: transparent" >
+          <img src="https://s3.amazonaws.com/notelimites/giphy+(<%=Date.today.strftime("%U").to_i * 2%>).gif" alt="" style=" text-align: center; max-width: 600px; padding: 20px">
+          <br>
+        </td>
+      </tr>
+
+
+
+      <tr>
+        <td align="left" style="padding-left: 30px; color: white; background-color: transparent; height: 700px">
+          </p>
+          <%	@eventstoday           = Event.joins(:venue).where(:venues => {:lat => [(latdown..latup)] } ).where(:venues => {:lng => [(lngdown..lngup)] } ).where('start_date > ?' , Date.today.to_time.in_time_zone("Central Time (US & Canada)") ).where('start_date < ?' , Date.tomorrow.to_time.in_time_zone("Central Time (US & Canada)") ).order(:start_date => 'ASC') %>
+          <%	@eventstomorrow        = Event.joins(:venue).where(:venues => {:lat => [(latdown..latup)] } ).where(:venues => {:lng => [(lngdown..lngup)] } ).where('start_date > ?' , Date.tomorrow.to_time.in_time_zone("Central Time (US & Canada)") ).where('start_date < ?' , 2.days.from_now(Date.today).to_time.in_time_zone("Central Time (US & Canada)") ).order(:start_date => 'ASC') %>
+          <%	@eventsaftertomorrow   = Event.joins(:venue).where(:venues => {:lat => [(latdown..latup)] } ).where(:venues => {:lng => [(lngdown..lngup)] } ).where('start_date > ?' , 2.days.from_now(Date.today).to_time.in_time_zone("Central Time (US & Canada)") ).where('start_date < ?' , 3.days.from_now(Date.today).to_time.in_time_zone("Central Time (US & Canada)") ).order(:start_date => 'ASC') %>
+          <ul>
+            <% unless @eventstoday.blank?   %>
+                <p style="color: #d14836; font-weight: bold; "> HOY: <%=	  l(Time.now, format: '%A' ).upcase  %> </p>
+                <%	 @eventstoday.first(5).each do |resultevent|  %>
+                    <li>
+                      <p style="display: inline; font-weight: bold; "><%=	 l(Time.now, format: '%a ')%> </p>
+                      <p style="display: inline; "><%=	 Time.now.strftime("%H:%M %p") %></p>
+                      <p style="display: inline; "><%= link_to(resultevent.name, resultevent, style: "color:#D14836") %></p>
+                    </li>
+                <%  end %>
+            <%   end %>
+            <% unless @eventstomorrow.blank?  %>
+                <p style="color: #dd3a27; font-weight: bold;   "> MAÑANA: <%= l(Date.tomorrow, format: '%A').upcase  %> </p>
+                <%  @eventstomorrow.first(5).each do |resultevent|	  %>
+                    <li>
+                      <p style="display: inline; font-weight: bold; "><%=	 l(Date.tomorrow, format: '%a ')%> </p>
+                      <p style="display: inline; "><%=	 Time.now.strftime("%H:%M %p") %></p>
+                      <p style="display: inline; "><%= link_to(resultevent.name, resultevent, style: "color:#D14836") %></p>
+                    </li>
+                <% end %>
+            <% end %>
+            <% unless @eventsaftertomorrow.blank?    %>
+                <% pasadomanana =	Time.now.to_date + 2  %>
+                <p style="color: #d14836; font-weight: bold;   "> <%=  l(pasadomanana, format: '%A').upcase  %></p>
+                <%  @eventsaftertomorrow.first(5).each do |resultevent|	  %>
+                    <li>
+                      <p style="display: inline; font-weight: bold; "><%=	 l(2.days.from_now(Date.today), format: '%a ')%> </p>
+                      <p style="display: inline; "><%=	 Time.now.strftime("%H:%M %p") %></p>
+                      <p style="display: inline; "><%= link_to(resultevent.name, resultevent, style: "color:#D14836") %></p>
+                    </li>
+                <% end %>
+            <% end %>
+          </ul>
+        </td>
+      </tr>
+
+
+      <tr>
+        <td align="center" style="background-color: black">
+          <div style="text-align: center; margin-top: 10px"  >
+            <%= link_to image_tag('https://s3.amazonaws.com/notelimites/NTL_logo_white.png',style: "max-width: 80px; width:100%; margin:10px;"), root_path %>
+          </div>
+          <br>
+          <p alt=""  style="font-weight: bold; color: whitesmoke; " > BUSCA LA <%=	 link_to "APLICACIÓN", root_path, style: "color:#D14836; text-align:left"   %></p>
+          <p alt=""  style="font-weight: bold; color: whitesmoke; " > CÓNECTATE CON <%=	 link_to "FACEBOOK", "https://www.facebook.com/NoTeLimites/", style: "color:#D14836; text-align:left"   %></p>
+          <p alt=""  style="font-weight: bold; color: whitesmoke; " > CREA TU CUENTA EN LA <%=	 link_to "PÁGINA WEB", root_path, style: "color:#D14836; text-align:left"   %></p>
+
+        </td>
+      </tr>
+
+    </table>
+
+  </div>
+</body>
+</html>

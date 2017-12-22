@@ -1,0 +1,79 @@
+<div class="col-md-12 col-sm-12 col-xs-12" style="padding: 0px !important;">
+  <div class="row border" style="background-color: #070707; opacity: .9; border: none" >
+    <div class="img-responsive" style="text-align: center ;"  >
+      <%=  image_tag('https://s3.amazonaws.com/notelimites/NTL_logo_white.png',style: "max-width: 80px; width:100%; margin:10px;") %>
+    </div>
+
+    <div >
+      <p class="lead  "  style="color: whitesmoke; text-align: center" > <%= t("footer.description").upcase %></p>
+      <ul class="list-inline "  style=" text-align: center" >
+        <%	 Location.where('supplier_id LIKE ?', "1").order("RANDOM()").limit(10).each do |location| %>
+            <li  style="text-decoration: underline; margin: 15px ; " > <%=	 link_to  location.name.upcase, location, style: "color: whitesmoke; text-align: center; font-size: 24px " %>  </li>
+        <%	 end %>
+      </ul>
+    </div>
+
+    <div  style="margin-top: 20px; text-align: center" >
+      <div class="row text-center"  style="background-color: transparent; margin-top: 30px">
+        <div >
+          <h4   style="margin-top: 8px; color: whitesmoke;" > <%=	t("header.app").upcase  %></h4>
+          <a  href="https://itunes.apple.com/us/app/notelimites/id1226054884?mt=8" style="display:inline-block;overflow:hidden;background:url(//linkmaker.itunes.apple.com/assets/shared/badges/en-us/appstore-lrg.svg) no-repeat;width:135px;height:40px;background-size:contain; margin-right: 10px"></a>
+          <a  href="http://play.google.com/store/apps/details?id=com.burocreativo.notelimites&hl=es>" style="display:inline-block;overflow:hidden;background:url(https://s3.amazonaws.com/notelimites/D90D94331E54D2005CC8CEE352FF98ECF639.png) no-repeat;width:135px;height:40px;background-size:contain;"></a>
+        </div>
+      </div>
+    </div>
+
+
+    <div  style="margin-top: 30px" >
+      <ul class="list-inline "; style="text-align: center" >
+        <%=  image_tag('https://s3.amazonaws.com/notelimites/Promote.png',style: "max-width: 40px; width:100%; margin:10px;") %>
+        <li class="lead" style="text-decoration: underline; margin: 15px " > <%=  link_to t("footer.promote").upcase, "http://info.notelimites.com/instituciones-culturales/", target: "_blank", style: "color: white" %> </li>
+        <li class="lead" style="text-decoration: underline; margin: 15px " > <%=  link_to t("footer.blog").upcase , "http://info.notelimites.com/", target: "_blank", style: "color: white" %> </li>
+        <li class="lead" style="text-decoration: underline; margin: 15px " > <%=  link_to t("footer.terms").upcase , terminos_path, style: "color: white" %> </li>
+        <li class="lead" style="text-decoration: underline; margin: 15px " > <%=  link_to t("footer.support").upcase , "http://info.notelimites.com/preguntas-frecuentes/", target: "_blank" , style: "color: white" %> </li>
+        <li class="lead" style="text-decoration: underline; margin: 15px " > <%=  link_to t("footer.contact").upcase ,"http://info.notelimites.com/contacto/", target: "_blank",  style: "color: white" %> </li>
+        <li class="lead" style="text-decoration: underline; margin: 15px " > <%=  link_to t("footer.thanks").upcase ,"http://info.notelimites.com/", target: "_blank",  style: "color: white" %> </li>
+        <li class="lead" style="text-decoration: underline; margin: 15px " > <%=  link_to t("footer.institutions").upcase , "http://info.notelimites.com/instituciones-culturales/", target: "_blank", style: "color: white" %> </li>
+      </ul>
+    </div>
+
+    <div class="col-md-offset-4 col-md-4 col-sm-6 col-xs-12" style="margin-top:30px" >
+      <div class="row"  style="background-color: transparent">
+        <p class="lead text-center " style="color: white"  ><%= t("footer.connect").upcase %> </p>
+        <div class="col-md-3 col-xs-3 text-center">
+          <a href="https://www.facebook.com/NoTeLimites/"><i class=" fa fa-4x fa-facebook-square " style="color: white">  </i></a>
+        </div>
+        <div class="col-md-3 col-xs-3 text-center" >
+          <a href="https://www.instagram.com/notelimites/"> <i class=" fa fa-4x fa-instagram" style="color: white"></i></a>
+        </div>
+        <div class="col-md-3 col-xs-3 text-center" >
+          <a href="https://twitter.com/NTLmx"> <i class=" fa fa-4x fa-twitter-square" style="color: white"></i> </a>
+        </div>
+        <div class="col-md-3 col-xs-3 text-center">
+          <a href="https://www.youtube.com/channel/UCAz9P4fgGbU2aOu02kv_qAw"><i class=" fa fa-4x fa-youtube-square"  style="color: white"></i> </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-12"  style="margin-top: 40px; color: whitesmoke; text-align: right">
+      <div class="row "  style=" background-color: transparent">
+        <p  > Monterrey, Nuevo León. México  </p>
+        <p style="margin: 0" > ©  NoTeLimites.com  </p>
+        <p  >
+        <img src=" https://s3.amazonaws.com/notelimites/seeco11_Cimg_0.png " style="color: #1b235a; max-width: 80px;">  </img>
+        </p>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
+
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    var input = document.getElementById('searchTextField3');
+    var autocomplete = new google.maps.places.Autocomplete(input);
+  });
+</script>

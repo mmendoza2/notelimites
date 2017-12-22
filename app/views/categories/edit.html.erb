@@ -1,0 +1,28 @@
+<h1>Editing categoria</h1>
+
+
+<div class="row">
+  <div id="formrow">
+
+    <%= form_for(@category, :html => {:multipart => true }) do |f| %>
+        <%= render 'shared/error_messages', object: f.object %>
+
+
+        <%= f.label :name %>
+        <%= f.text_field :name %>
+
+        <%= f.label :descripcion %>
+        <%= f.text_area :descripcion %>
+
+        <%= f.label :imagen %>
+        <%= f.file_field :photo %>
+
+        <%= f.submit "Sube tu @category", class: "btn btn-large btn-primary" %>
+
+    <% end %>
+  </div>
+</div>
+
+
+<%= link_to 'Show', @actividadpadre %> |
+<%= link_to 'Back', actividadpadre_path %>

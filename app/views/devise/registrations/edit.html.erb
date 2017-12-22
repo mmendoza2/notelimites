@@ -1,0 +1,107 @@
+
+<div class="container">
+
+  <div class="col-md-8 col-md-offset-2" style="margin-top: 40px">
+
+
+      <div class="row border">
+        <div class="col-md-8 col-md-offset-2">
+          <br>
+          <h2>Actualiza tus datos</h2>
+          <hr/>
+
+        <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
+              <%= devise_error_messages! %>
+              <p>Tu correo electrónico es:</p>
+              <%=	 current_user.email %>
+              <br>
+              <hr>
+              <p>¿Quiéres dejar de seguir recibiendo correos?</p>
+              <%= f.label :"Recibir correos: " %>
+              <%= f.check_box :send_email %>
+              <br />
+
+
+
+              <hr>
+              <%	 if current_user.admin == true %>
+                  <br>
+                  <div class="row" style="background: #d3c9ce">
+                      <p>Espacio para Admin</p>
+
+                      <%= f.email_field :email, :autofocus => true,  :placeholder => "Email", class: 'input-sm' %>
+                      <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+                        <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+                      <% end %>
+                      <div> <i>(Dejalo en blanco si no lo quieres cambiar)</i><br />
+                      <%= f.password_field :password, :autocomplete => "off", :autofocus => true, :placeholder => "Password", class: 'input-sm' %></div>
+                        <div><br />
+                      <%= f.password_field :password_confirmation, :placeholder => "Confirma tu Password", class: 'input-sm' %></div>
+
+                      <% if f.object.encrypted_password.present? %>
+                        <div class="field"><i>(Necesitamos tu password actual por seguridad)</i><br />
+                          <%= f.password_field :current_password, :placeholder => "Password Actual", class: 'input-sm' %></div>
+                      <% end %>
+                  </div>
+              <% end %>
+
+              <div ><%= f.submit "Actualizar", class: 'btn btn-primary' %></div>
+        <% end %>
+
+        <br>
+        <hr>
+        <p>Actualiza tu ubicación para recibir notificaciones sobre dónde te encuentres</p>
+
+
+          <%=	 form_for Location.new,  :html => { role: "search"}  do |t| %>
+            <%=	 t.text_field :name, placeholder: (if @location.blank? then "Ingresa tu ubicación" else @location.name end)   , value: (@location.name unless @location.blank?  ), id: 'searchTextField22', class: 'form-control input-group-sm', size: '25' %>
+            <%= button_tag(type: 'submit', class: "btn btn-default", style: "background-color: transparent; border: none", data: {toggle: "tooltip", placement: "left" }, title: "tooltip on second input!" ) do %>
+                <i class="fa fa-2x fa-search" style="color: #010101; text-align: center" > </i>
+            <% end %>
+        <%	 end %>
+
+
+
+          <%	 if current_user.email == 'man.m25@gmail.com' %>
+              <hr>
+            <div style="background-color: cornflowerblue " >
+
+
+              <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
+                  <br>
+                  <%= f.password_field :password %></div>
+                  <br>
+                <div class="field"><%= f.submit "cambiar password" %></div>
+            <% end %>
+
+          </div>
+
+          <% end %>
+
+
+        </div>
+
+
+
+
+      </div>
+  </div>
+</div>
+
+
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    var input = document.getElementById('searchTextField11');
+    var autocomplete = new google.maps.places.Autocomplete(input);
+  });
+</script>
+
+
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    var input = document.getElementById('searchTextField22');
+    var autocomplete = new google.maps.places.Autocomplete(input);
+  });
+</script>

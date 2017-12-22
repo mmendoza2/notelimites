@@ -1,0 +1,243 @@
+<%	unless resultevent.venue.nil?  %>
+    <script type="text/javascript" charset="utf-8">
+        var contentString =
+            '<div >'+
+            '<h1  ><%= resultevent.venue.name %></h1>'+
+            '<div>'+
+            '<%= image_tag( resultevent.venue.image) %>'+
+            '</div>'+
+            '</div>';
+        var infowindow = new google.maps.InfoWindow({
+            content: contentString
+        });
+        var infowindow = new google.maps.InfoWindow();
+        //   var imag = 'https://s3.amazonaws.com/notelimites/ICONOS+LOCATION+MAP-11.png';
+        //   var image = 'https://s3.amazonaws.com/notelimites/ICONOS+LOCATION+MAP-11.png';
+        marker = new google.maps.Marker({
+            position: new google.maps.LatLng(<%= resultevent.venue.lat.to_d  %> , <%= resultevent.venue.lng.to_d %>),
+            map: map,
+            //         icon: image
+        });
+    </script>
+    <div id="rowinfo" class="row border" style="margin-bottom:20px; height:auto; margin-left: 30px; background-color: transparent; border: none"
+         onmouseover="
+         map.panTo(new google.maps.LatLng(<%= resultevent.venue.lat.to_d   %>, <%= resultevent.venue.lng.to_d - 0.03%>));
+             marker = new google.maps.Marker({
+                 position: new google.maps.LatLng(<%= resultevent.venue.lat.to_d  %> , <%= resultevent.venue.lng.to_d %>),
+                 anchorPoint : new google.maps.Point(0, -40),
+                 map: map
+                 //     icon: image
+                 });
+             infowindow.setContent('<%= resultevent.venue.name  %> ' );
+             infowindow.open(map, marker);
+         "
+         onmouseout="infowindow.close();"  >
+      <div class="col-md-4 col-sm-4 hidden-xs"  >
+        <div  style="height: 300px; margin: -10px 0px -10px -25px; padding-bottom: 10px; background-color: black " >
+          <br>
+          <p  style="margin: 5px 0 0px 20px !important; font-size: 30px; color: white; text-align: left; display: inline; ">  <%= event_date_day(resultevent)  %> </p>
+          <p  style="margin: 5px 0 0px 0px; color: white; text-align: left; display: inline ">  <%= event_date_month(resultevent)  %> </p>
+          <h4 style="margin: 5px 0 0px 20px; text-align: left">   <%=	 link_to event_name(resultevent), resultevent %> </h4>
+          <br>
+          <p id="followersloc<%= resultevent.id %>" style="margin: 5px 0 0px 20px; color: white"><i class="fa fa-users">: </i>  <%=  resultevent.attending_count.to_i  %> <%=	t("location.persons")  %> </p>
+          <p style="margin: 5px 0 0px 20px; color: whitesmoke"><i class="fa fa-map-marker">: </i> <%= link_to  location_name(resultevent), resultevent.venue	  %></p>
+          <%	 if resultevent.tm &&  resultevent.tm = true %>
+              <p style="margin: 5px 0 0px 10px; ">   <%= link_to(image_tag("https://s3.amazonaws.com/notelimites/tmlogo_blue.png", style: "max-height: 50px;   height: auto"), resultevent.official_url, target: '_blank' ) %></p>
+          <%	 else %>
+              <p style="margin: 5px 0 0px 10px; ">  <%= image_tag("https://s3.amazonaws.com/notelimites/facebook-logo-reversed.png", style: "max-height: 50px;   height: auto") %></p>
+          <%	 end %>
+          <%	if signed_in? %>
+              <% unless current_user?(resultevent) %>
+                  <div id='follow_form<%= resultevent.id %>' style="margin: 5px 0 0px 20px;">
+                    <% if current_user.followingevent?(resultevent) %>
+                        <%= render 'events/unfollow', :@event => resultevent %>
+                    <% else %>
+                        <%= render 'events/follow', :@event => resultevent %>
+                    <% end %>
+                  </div>
+              <% end %>
+          <% end %>
+        </div>
+      </div>
+      <div class="visible-xs col-xs-12"  >
+        <div  style=" margin: -10px -25px 10px -25px; padding-bottom: 10px; background-color: black " >
+          <br>
+          <h4 style="margin: 5px 0 0px 20px; text-align: left; display: inline">   <%=	 link_to event_name(resultevent), resultevent %> </h4>
+          <p  style="margin: 5px 0 0px 20px !important; font-size: 25px; color: white; text-align: left; display: inline; ">  <%= event_date_day(resultevent)  %> </p>
+          <p  style="margin: 5px 0 0px 0px; color: white; text-align: left; display: inline ">  <%= event_date_month(resultevent)  %> </p>
+          <p id="followersloc<%= resultevent.id %>" style="margin: 5px 0 0px 20px; color: white"><i class="fa fa-users">: </i>  <%=  resultevent.attending_count.to_i  %> <%=	t("location.persons")  %> </p>
+          <p  style="margin: 5px 0 0px 20px; color: whitesmoke"><i class="fa fa-map-marker">: </i> <%= link_to  location_name(resultevent), resultevent.venue	  %></p>
+          <%	 if resultevent.tm &&  resultevent.tm = true %>
+              <p style="margin: 0px 0 0px 10px; ">   <%= link_to(image_tag("https://s3.amazonaws.com/notelimites/tmlogo_blue.png", style: "max-height: 50px;   height: auto"), resultevent.official_url, target: '_blank' ) %></p>
+          <%	 else %>
+              <p style="margin: 0px 0 0px 10px; ">  <%= image_tag("https://s3.amazonaws.com/notelimites/facebook-logo-reversed.png", style: "max-height: 50px;   height: auto") %></p>
+          <%	 end %>
+          <%	if signed_in? %>
+              <% unless current_user?(resultevent) %>
+                  <div id='follow_form<%= resultevent.id %>' style="margin: 5px 0 0px 20px;">
+                    <% if current_user.followingevent?(resultevent) %>
+                        <%= render 'events/unfollow', :@event => resultevent %>
+                    <% else %>
+                        <%= render 'events/follow', :@event => resultevent %>
+                    <% end %>
+                  </div>
+              <% end %>
+          <% end %>
+        </div>
+        <%	 unless resultevent.image.nil?  %>
+            <div class="img-responsive" style="margin: -10px -10px 20px -25px  !important;  ">
+              <%= link_to(image_tag(resultevent.image,  style: "width:110%", :alt => resultevent.name), resultevent) %>
+            </div>
+        <%	end  %>
+      </div>
+
+      <div class="col-md-8 col-sm-8 hidden-xs" style=" padding: 0% !important">
+        <%	 unless resultevent.image.nil?  %>
+            <div  style="margin: -10px -10px 20px -15px  !important;  padding: -5px !important;" >
+              <%= link_to(image_tag(resultevent.image,  style: "min-width:105%; width: 105%; height: 300px", :alt => resultevent.name), resultevent) %>
+            </div>
+        <%	end  %>
+      </div>
+
+    </div>
+
+
+    <!-- META para google webmaster -->
+    <meta name="keywords"    content=" <%= resultevent.name  %>  " >
+    <!-- META para facebook share webmaster -->
+    <meta property="og:url"                content="<%=request.original_url%>" />
+    <meta property="og:type"               content="event" />
+    <meta property="og:title"              content="<%= resultevent.name %>" />
+    <meta property="og:description"        content="<%= resultevent.name %> en <%= resultevent.venue.name %>" />
+    <meta property="og:image"              content="<%= resultevent.image %>" />
+    <meta property="fb:app_id"             content="182819485154177" />
+    <% if resultevent.category_id == '2' %>
+        <script type="application/ld+json">
+                                                                  {
+                                                                    "@context": "https://schema.org/",
+                                                                    "@type": "SportsEvent",
+                                                                    "name": "<%= resultevent.name %>",
+                                                                    "startDate": "<%= resultevent.start_date %>",
+                                                                    "endDate": "<%= resultevent.end_date %>",
+                                                                    "description": "<%= resultevent.description %>",
+                                                                    "image": "<%= resultevent.image %>",
+                                                                    "performer": "<%= resultevent.name %>",
+                                                                    <%   if resultevent.tm == true %>
+                                                                    "url": "<%= resultevent.official_url %>",
+                                                                    <%   else %>
+                                                                    "url": "https://www.facebook.com/events/<%= resultevent.uid %>",
+                                                                    <%   end %>
+                                                                    "location":   {
+                                                                                      "@type": "StadiumOrArena",
+                                                                                      "name": "<%= resultevent.venue.name %>",
+                                                                                      "address": "<%= resultevent.venue.place %>",
+                                                                                       <%   if resultevent.tm == true %>
+                                                                                      "sameAs": "<%= resultevent.venue.official_url %>"
+                                                                                      <%   else %>
+                                                                                      "url": "https://www.facebook.com/events/<%= resultevent.venue.uid %>"
+                                                                                      <%   end %>
+                                                                                  },
+                                                                    "awayTeam":   {
+                                                                                      "@type": "SportsTeam",
+                                                                                      "name": "",
+                                                                                      "sameAs": ""
+                                                                                  },
+                                                                    "homeTeam":   {
+                                                                                      "@type": "SportsTeam",
+                                                                                      "name": "",
+                                                                                      "sameAs": ""
+                                                                                  },
+                                                                    "offers":     {
+                                                                                    "@type": "Offer",
+                                                                                    "category": "",
+                                                                                    <%   if resultevent.tm == true %>
+                                                                                    "url": "<%= resultevent.official_url %>"
+                                                                                    <%   else %>
+                                                                                    "url": "https://www.facebook.com/events/<%= resultevent.uid %>"
+                                                                                    <%   end %>
+                                                                                  }
+                                                                  }
+                                                             </script>
+    <% elsif resultevent.category_id == '1' %>
+        <script type="application/ld+json">
+                                                                  {
+                                                                    "@context": "https://schema.org/",
+                                                                    "@type": "MusicEvent",
+                                                                    "name": "<%= resultevent.name %>",
+                                                                    "startDate": "<%= resultevent.start_date %>",
+                                                                    "endDate": "<%= resultevent.end_date %>",
+                                                                    "description": "<%= resultevent.description %>",
+                                                                    "image": "<%= resultevent.image %>",
+                                                                    "performer": "<%= resultevent.name %>",
+                                                                     <%   if resultevent.tm == true %>
+                                                                    "url": "<%= resultevent.official_url %>",
+                                                                    <%   else %>
+                                                                    "url": "https://www.facebook.com/events/<%= resultevent.uid %>",
+                                                                    <%   end %>
+                                                                     "location":  {
+                                                                                    "@type": "EventVenue",
+                                                                                    "name": "<%= resultevent.venue.name %>",
+                                                                                    "address": "<%= resultevent.venue.place %>",
+                                                                                     <%   if resultevent.tm == true %>
+                                                                                    "sameAs": "<%= resultevent.venue.official_url %>"
+                                                                                    <%   else %>
+                                                                                    "url": "https://www.facebook.com/events/<%= resultevent.venue.uid %>"
+                                                                                    <%   end %>
+                                                                                  },
+
+                                                                    "offers":     {
+                                                                                    "@type": "Offer",
+                                                                                    "category": "",
+                                                                                     <%   if resultevent.tm == true %>
+                                                                                    "url": "<%= resultevent.official_url %>"
+                                                                                    <%   else %>
+                                                                                    "url": "https://www.facebook.com/events/<%= resultevent.uid %>"
+                                                                                    <%   end %>
+                                                                                  },
+                                                                    "performer":  {
+                                                                                    "@type": "MusicGroup",
+                                                                                    "name": "<%= resultevent.name %>",
+                                                                                    "sameAs": ""
+                                                                                  }
+                                                                  }
+                                                             </script>
+    <% else %>
+        <script type="application/ld+json">
+                                                                  {
+                                                                    "@context": "https://schema.org/",
+                                                                    "@type": "Event",
+                                                                    "name": "<%= resultevent.name %>",
+                                                                    "startDate": "<%= resultevent.start_date %>",
+                                                                    "endDate": "<%= resultevent.end_date %>",
+                                                                    "description": "<%= resultevent.description %>",
+                                                                    "image": "<%= resultevent.image %>",
+                                                                    "performer": "<%= resultevent.name %>",
+                                                                     <%   if resultevent.tm == true %>
+                                                                    "url": "<%= resultevent.official_url %>",
+                                                                    <%   else %>
+                                                                    "url": "https://www.facebook.com/events/<%= resultevent.uid %>",
+                                                                    <%   end %>
+                                                                     "location": {
+                                                                                    "@type": "EventVenue",
+                                                                                    "name": "<%= resultevent.venue.name %>",
+                                                                                    "address": "<%= resultevent.venue.place %>",
+                                                                                    <%   if resultevent.tm == true %>
+                                                                                    "sameAs": "<%= resultevent.venue.official_url %>"
+                                                                                    <%   else %>
+                                                                                    "url": "https://www.facebook.com/events/<%= resultevent.venue.uid %>"
+                                                                                    <%   end %>
+                                                                                 },
+
+                                                                    "offers":    {
+                                                                                    "@type": "Offer",
+                                                                                    "category": "",
+                                                                                     <%   if resultevent.tm == true %>
+                                                                                    "url": "<%= resultevent.official_url %>"
+                                                                                    <%   else %>
+                                                                                    "url": "https://www.facebook.com/events/<%= resultevent.uid %>"
+                                                                                    <%   end %>
+                                                                                 }
+                                                                  }
+                                                            </script>
+    <% end %>
+<%	end %>

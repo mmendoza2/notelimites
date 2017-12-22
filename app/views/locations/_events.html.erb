@@ -1,0 +1,58 @@
+<% loc = ActiveSupport::JSON.decode(open("https://maps.googleapis.com/maps/api/geocode/json?address=#{URI.encode(@location.name)}&key=AIzaSyClq051yZOiR1YEiaIRTuoi0I0gZgEWZKE").read) %>
+<% loc['results'].first(1).each do |x| %>
+    <% lat =	 x['geometry']['location']['lat']%>
+    <% lng =	 x['geometry']['location']['lng']%>
+    <% centerlng = lng - 0.02 %>
+
+    <% @eventsbuscar.each do |resultevent| %>
+        <%	unless resultevent.venue.nil?  %>
+            <%	 if resultevent.venue.lat.to_d <= lat + 0.1 and resultevent.venue.lat.to_d  >= lat - 0.1 and resultevent.venue.lng.to_d <= lng + 0.1 and resultevent.venue.lng.to_d  >= lng - 0.1 %>
+                <div id="rowinfo"  class="row border" style="margin-bottom: 10px; height: auto;  " >
+                  <div class="col-md-4 col-sm-4 col-xs-12" style=" padding: 0% !important;">
+                    <div class="col-md-12" style=" padding: 0% !important;" >
+                      <%	 unless resultevent.image.nil?  %>
+                          <div class="img-responsive" >
+                            <%= link_to(image_tag(resultevent.image,  style: "width: 100%; max-height: 150px  "), resultevent) %>
+                          </div>
+                      <%	end  %>
+                    </div>
+                    <div class="col-md-12">
+                    </div>
+                  </div>
+                  <div class="col-md-8 col-sm-8 col-xs-12" style="padding: 0 !important;">
+                    <div class="col-md-12 col-sm-12 col-xs-12" style="padding: 0 !important; text-align: center ">
+                      <h3>   <%=	 link_to resultevent.name, resultevent %> </h3>
+                      <hr/>
+                    </div>
+
+
+                    <div>
+                      <div class="col-md-7 col-sm-7 col-xs-12" style="text-align: left">
+                        <p style="margin: 5px 0 0px 0px; color: #333138"><i class="fa fa-calendar">: </i>  <%= resultevent.start_date.to_formatted_s(:short)   %> </p>
+                        <p style="margin: 5px 0 0px 0px; color: #333138"><i class="fa fa-users">: </i>  <%= resultevent.attending_count  %> personas </p>
+                        <p style="margin: 5px 0 0px 4px; color: #333138">  <i class="fa fa-map-marker">: </i> <%= link_to resultevent.venue.name, resultevent.venue	  %></p>
+
+                        <%	if signed_in? %>
+
+                            <%	 unless current_user.email != 'man.m25@gmail.com' %>
+                                <hr>
+                                <%= link_to 'Destroy', resultevent,
+                                            method: :delete,
+                                            data: { confirm: 'Are you sure?' }, style:"margin-left:30px" %>
+                                <p >( SOLO ADMIN )</p>
+                            <%	 end %>
+                        <% else %>
+                        <% end %>
+
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            <%	else  %>
+            <%	end %>
+        <%	end %>
+
+    <%	 end %>
+
+<%	 end %>

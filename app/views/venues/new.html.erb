@@ -1,0 +1,79 @@
+
+<div class="container">
+  <div class="col-md-12" style="margin-top: 30px">
+    <div class="col-md-8  col-md-offset-2" >
+      <div class="col-md-12">
+        <div class="row border">
+          <div class="col-md-8">
+            <p class="lead" style="margin-top: 15px;"> Nuevo Lugar  </p>
+          </div>
+          <div class="col-md-4" >
+            <div class=" border" style="margin-top: 10px; text-align: left !important; padding: 3px; background-color: #f6f6f5 ">
+              <i class=" fa fa-3x fa-facebook" style="margin-right: 10px; color: #3d5f91 "></i>
+            </div>
+          </div>
+          <%	 if signed_in? %>
+              <div class="col-md-12">
+
+                <hr >
+                <ul class="list-inline">
+
+                  <%= form_for(@venue, :html => {:multipart => true }) do |f| %>
+                      <%= render 'shared/error_messages', object: f.object %>
+                          <li>
+                            <%= f.label :"Selecciona la ubicación" %>
+                            <%=	 f.text_field :name, placeholder: "Ingresa la ubicación"  ,   id: 'searchTextField4', class: 'form-control', size: '25' %>
+                          </li>
+                          </br>
+                          <br>
+                          <li>
+                            <%= f.fields_for :images do |x| %>
+                                <%= x.label :imagen %>
+                                <%= x.file_field :photo, class: 'form-control' %>
+                            <% end %>
+                          </li>
+                          </br>
+                          <li>
+                            <%= f.label :"Descripción del lugar" %>
+                            <%= f.text_area :description, placeholder: "Opcional", class: 'form-control' %>
+                          </li>
+                          <br>
+                            <%= f.submit "Sube tu lugar", class: "btn btn-large btn-primary" %>
+                          </li>
+                      <% end %>
+                </ul>
+              </div>
+          <% else %>
+              <div class="col-md-12">
+                <div class="row border">
+                  <p >Por favor de ingresar para poder subir Lugares</p>
+                  <div class="btn btn-sm btn-primary" style="margin-top: 10px; ">
+                    <i class=" fa fa-2x fa-facebook" style="margin-right: 10px; "></i>
+                    <%= link_to "  Ingresa con Facebook", user_omniauth_authorize_path(:facebook), style: "color:white;  " %>
+                  </div>
+                </div>
+              </div>
+
+          <% end %>
+
+
+
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</div>
+
+
+
+
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    var input = document.getElementById('searchTextField4');
+    var autocomplete = new google.maps.places.Autocomplete(input);
+  });
+</script>
+

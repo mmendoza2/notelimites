@@ -1,0 +1,33 @@
+
+  <%= favicon_link_tag 'https://s3.amazonaws.com/imagenes.notelimites/favicon.ico' %>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyClq051yZOiR1YEiaIRTuoi0I0gZgEWZKE&libraries=places" type="text/javascript"></script>
+  <%= csrf_meta_tags %>
+
+  <!-- Start Alexa Certify Javascript -->
+  <script type="text/javascript">
+    _atrk_opts = { atrk_acct:"lwRKm1a4KM+2vg", domain:"notelimites.com",dynamic: true};
+    (function() { var as = document.createElement('script'); as.type = 'text/javascript'; as.async = true; as.src = "https://d31qbv1cthcecs.cloudfront.net/atrk.js"; var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(as, s); })();
+  </script>
+  <noscript><img src="https://d5nxst8fruw4z.cloudfront.net/atrk.gif?account=lwRKm1a4KM+2vg" style="display:none" height="1" width="1" alt="" /></noscript>
+  <!-- End Alexa Certify Javascript -->
+  <!-- Facebook Pixel Code -->
+  <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+      n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+        document,'script','//connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1629111950676354');
+    fbq('track', "PageView");</script>
+  <noscript><img height="1" width="1" style="display:none"
+                 src="https://www.facebook.com/tr?id=1629111950676354&ev=PageView&noscript=1"
+  /></noscript>
+  <!-- End Facebook Pixel Code -->
+
+
+
+
+

@@ -1,0 +1,12 @@
+#rowinfo:hover{
+  opacity: .9;
+  width: 100%;
+
+  #rowinfoname{
+   display: none;
+  }
+  #rowinfoshow{
+    visibility: visible !important;
+  }
+
+}

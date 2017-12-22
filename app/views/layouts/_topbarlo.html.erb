@@ -1,0 +1,167 @@
+
+
+
+<!-- top navbar -->
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <div class="img-responsive"  >
+        <%= link_to image_tag('https://s3.amazonaws.com/notelimites/NTL_logo_white.png',style: "max-width: 80px; width:100%; margin:10px;"), root_path %>
+      </div>
+    </div>
+
+    <!--  Sin toggle no se ve con SM y XS -->
+    <ul class="nav navbar-nav navbar hidden-xs ">
+
+      <div class="navbar-text " style="margin-left: 100px; color: #bd1b3a">
+        <i class="fa fa-2x fa-map-marker"></i>
+      </div>
+      <li>
+        <div class="form-group" >
+          <%=	 form_for Location.new,  :html => {:class => "navbar-form navbar-right", role: "search"}  do |t| %>
+              <%=	 t.text_field :name, placeholder: (if @location.blank? then t("header.enter_location") else @location.name end)   , value: (@location.name unless @location.blank?  ), id: 'searchTextField', class: 'form-control input-group-sm col-xs-10', size: '25', style: ' width: 200px' %>
+              <%= button_tag(type: 'submit', class: "btn btn-default", style: "background-color: transparent; border: none", data: {toggle: "tooltip", placement: "left" }, title: "tooltip on second input!" ) do %>
+                  <i class="fa fa-2x fa-search" style="color: #ffffff; text-align: center" ></i>
+              <% end %>
+          <%	 end %>
+        </div>
+      </li>
+      <li class="dropdown visible-sm" style="margin-left:  50px">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+          <i  class="fa fa-2x fa-language"></i>
+        </a>
+        <ul class="dropdown-menu" role="menu">
+          <% I18n.available_locales.each do |x|  %>
+              <li>
+                <%=  link_to("#{x}", root_url(subdomain: "#{x}").chomp('/')  + request.fullpath , style: "font-weight: bold; font-size: 12px;" )   %>
+              </li>
+          <% end %>
+        </ul>
+      </li>
+    </ul>
+
+    <!--  Sin toggle no se ve con SM y XS -->
+    <ul class="nav navbar-nav navbar-right hidden-xs hidden-sm" >
+      <li class="dropdown" style="margin-right: 30px">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+          <i  class="fa fa-2x fa-language"></i>
+        </a>
+        <ul class="dropdown-menu" role="menu">
+          <% I18n.available_locales.each do |x|  %>
+              <li>
+                <%=  link_to("#{x}", root_url(subdomain: "#{x}").chomp('/') + request.fullpath , style: "font-weight: bold; font-size: 12px;" )   %>
+              </li>
+          <% end %>
+        </ul>
+      </li>
+      <div class="btn btn-sm btn-primary" style="margin-top: 10px; ">
+          <i class=" fa fa-2x fa-facebook" style="margin-right: 10px; "></i>
+          <%= link_to t("header.sign_up_fb"),user_facebook_omniauth_authorize_path, style: "color:white;  " %>
+      </div>
+    </ul>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="margin-top: 50px">
+      <ul class="nav navbar-nav navbar-right hidden-sm hidden-md hidden-lg">
+        <li class="dropdown text-center" style="margin-right: 30px">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <i  class="fa fa-2x fa-language"></i>
+          </a>
+          <ul class="dropdown-menu" role="menu">
+            <% I18n.available_locales.each do |x|  %>
+                <li>
+                  <%=  link_to("#{x}", root_url(subdomain: "#{x}").chomp('/') + request.fullpath , style: "font-weight: bold; font-size: 12px;" )   %>
+                </li>
+            <% end %>
+          </ul>
+        </li>
+        <li class="lead text-center" style="font-weight: bold; color: white">
+          <a href="#" data-toggle="modal" data-target="#myModal">
+              <div class="btn btn-sm btn-primary" style="margin-top: 10px; ">
+                <i class=" fa fa-2x fa-facebook" style="margin-right: 10px; color: white "></i>
+                <%= link_to t("header.sign_up_fb"), user_facebook_omniauth_authorize_path, style: "color:white;  " %>
+              </div>
+          </a>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" >
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel" >Ingresa a NoTeLimites</h4>
+      </div>
+      <div class="modal-body">
+          <section>
+            <div class="header-description">
+              <div class="text-center  " style="margin-top: 30px">
+                <p> ¡No pierdas tiempo y checa todo lo que puedes hacer registrandote!</p>
+                <p></p>
+                <i class="icon-facebook-sign"></i>  <%= link_to t("header.sign_up_fb"), user_facebook_omniauth_authorize_path, class: " btn btn-lg btn-primary" %>
+              </div><!-- /header-description -->
+            </div>
+          </section>
+
+      </div>
+      <div class="modal-footer">
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="navbar navbar-default navbar-fixed-top visible-xs" style="margin-top: 50px; ">
+  <ul  class="col-xs-2" style="margin-top: -5px; margin-bottom: -12px" >
+    <li style="list-style-type: none">
+      <p class="navbar-text" style="margin-left: 0px; color: #bd1b3a">
+        <i class="fa fa-2x fa-map-marker" style="color: #bd1b3a"></i>
+
+      </p>
+    </li>
+  </ul>
+  <ul class="col-xs-10"  style="margin-top: -5px;" >
+    <li style="list-style-type: none">
+      <div class="form-group " >
+        <%=	 form_for Location.new,  :html => {:class => "navbar-right", role: "search"}  do |t| %>
+            <%=	 t.text_field :name, placeholder: (if @location.blank? then t("header.enter_location") else @location.name end)   , value: (@location.name unless @location.blank?  ), id: 'searchTextField1', class: 'form-control input-group-sm col-xs-10', size: '25', style: ' width: 200px' %>
+            <%= button_tag(type: 'submit', class: "btn btn-sm col-xs-1" , style: "background-color: transparent; border: none;") do %>
+                <i class="fa fa-2x fa-search col-xs-1" style="color: #333138; margin-top: -5px; text-align: right !important;"></i>
+            <% end %>
+        <%	 end %>
+      </div>
+    </li>
+  </ul>
+</div>
+
+
+
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    var input = document.getElementById('searchTextField');
+    var autocomplete = new google.maps.places.Autocomplete(input);
+  });
+</script>
+
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    var input = document.getElementById('searchTextField1');
+    var autocomplete = new google.maps.places.Autocomplete(input);
+  });
+</script>

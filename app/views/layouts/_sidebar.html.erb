@@ -1,0 +1,19 @@
+<!-- Sidebar -->
+<div id="sidebar-wrapper">
+<%	 if current_user.admin? or current_user.editor? %>
+      <ul class="sidebar-nav">
+        <li class="active"><i ><%= link_to " Descubre", root_path %></i></li>
+        <li><i > <%= link_to "Explora", estados_path %></i></li>
+        <li><i > <%= link_to "Usuarios", users_path %></i></li>
+      </ul>
+<%	 else %>
+      <ul class="sidebar-nav">
+        <li class="active"><i ><%= link_to " Descubre", root_path %></i></li>
+        <li><i > <%= link_to "Explora", estados_path %></i></li>
+        <li><i > <%= link_to "Usuarios", users_path %></i></li>
+      </ul>
+
+
+  <%	 end %>
+
+</div>

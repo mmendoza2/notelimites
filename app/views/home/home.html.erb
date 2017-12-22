@@ -1,0 +1,69 @@
+<title><%=t("home.title")%> </title>
+<meta name="description" content= <%=t("home.description")%> >
+
+<% flash.each do |key, value| %>
+    <div class="<%= key %>">
+      <script>
+        ga('send', 'pageview' <%= ", '#{value}'".html_safe %>);
+      </script>
+    </div>
+<% end %>
+
+
+<div id="bg" style="margin-top: -100px;  ">
+  <%= image_tag "https://s3.amazonaws.com/quickplace/images/quickplace.jpg"%>
+</div>
+<div class="container " style="z-index: -1; margin-bottom: 100px" >
+  <div class="col-md-12" style="margin-top: 10%; text-align: center; " >
+    <div  style="text-align: center; color: #ffffff  ">
+      <div class="col-md-10 col-md-offset-1" style="background-color:rgba(73, 73, 73, 0.80); padding-top: 15px; padding-bottom: 15px; padding-left: 5px; margin-bottom: 50px; border-radius: 10px; ">
+        <h1 class="lead"> <%=	 t("home.slogan") %></h1>
+        <%=	 form_for Location.new,  :html => {:class => "navbar-form  input-group-lg", style: 'text-align:center !important', role: "search"}  do |t| %>
+            <%=	 t.text_field :name, placeholder: (if @location.blank? then t("header.enter_location") else @location.name end)   , value: (@location.name unless @location.blank?  ), id: 'searchTextField3', class: 'form-control ' %>
+            <%= button_tag(type: 'submit', class: "btn btn-default", style: "background-color: transparent; border: none", data: {toggle: "tooltip", placement: "left" }, title: "tooltip on second input!" ) do %>
+                <i class="fa fa-3x fa-search" style="color: #ffffff; text-align: center" ></i>
+            <% end %>
+        <%	 end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    var input = document.getElementById('searchTextField3');
+    var autocomplete = new google.maps.places.Autocomplete(input);
+  });
+</script>
+
+<script type='application/ld+json'>
+{
+  "@context": "http://www.schema.org",
+  "@type": "Organization",
+  "name": "NTL",
+  "url": "https://www.notelimites.com/",
+  "description": "Find the best events near by. ",
+  "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "Tapia 991",
+              "addressLocality": "Monterrey",
+              "addressRegion": "NL",
+              "postalCode": "64000",
+              "addressCountry": "Mexico"
+             },
+"geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "25.678950,",
+        "longitude": "-100.305621"
+        },
+"openingHours": "Mo, Tu, We, Th, Fr, Sa, Su 08:00-18:00",
+"contactPoint": {
+"@type": "ContactPoint",
+"telephone": "+52 8183740034",
+"contactType": "Contact"
+}
+}
+</script>
+
+

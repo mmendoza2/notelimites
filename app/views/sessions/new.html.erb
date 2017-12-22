@@ -1,0 +1,65 @@
+<% provide(:title, "Sign in") %>
+
+<div class="container">
+  <div class="contenedorpagprincipal">
+    <div class="login-form-wrap-center">
+      <h1 class="sign-up-header">Ingresa a No Te Limites</h1>
+      <div class="wrapper-form">
+
+
+
+        <section class="wrapper-facebook">
+          <div id="user-widget">
+            <% if current_user %>
+                Welcome <strong><%= current_user.name %></strong>!
+                <%= link_to "Sign out", signout_path, id: "sign_out" %>
+            <% else %>
+                <%= link_to "Ingresa con Facebook", "/auth/facebook", id: "sign_in", class: "btn btn-large btn-primary" %>
+            <% end %>
+          </div>
+
+          <div class="row" >
+            <div class="span6 offset3" >
+              <p>
+                <br>
+                <strong>O Registrate con tu Email</strong>
+              </p>
+
+              <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+                  <div class="field"><%= f.label :email %><br />
+                    <%= f.text_field :email %></div>
+
+                  <div class="field"><%= f.label :password %><br />
+                    <%= f.password_field :password %></div>
+
+                  <% if devise_mapping.rememberable? -%>
+                      <div class="field"><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
+                  <% end -%>
+
+                  <div class="field"><%= f.submit "Login" %></div>
+              <% end %>
+
+              <%= render "devise/shared/links" %>
+
+            </div>
+          </div>
+        </section>
+
+
+
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
